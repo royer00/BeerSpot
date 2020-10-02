@@ -1,0 +1,56 @@
+﻿@model BeerSpot.DATA.EF.BeersContainer
+
+@{
+    ViewBag.Title = "Select Container For Beer";
+}
+
+<h2 class="text-center mt-3 mb-3">@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal offset-2 col-md-8 contact-form">
+        
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.BeersContainersID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BeersContainersID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BeersContainersID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BeerID, "BeerID", htmlAttributes: new { @class = "control-label col-md-2 offset-1" })
+            <div class=" offset-1 col-md-10">
+                @Html.DropDownList("BeerID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BeerID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContainerID, "ContainerID", htmlAttributes: new { @class = "control-label col-md-2 offset-1" })
+            <div class="offset-1 col-md-10">
+                @Html.DropDownList("ContainerID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ContainerID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="offset-1 col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+}
+
+<div class="mt-5">
+    @Html.ActionLink("Back to BeersContainers", "Index",null,new { @class="offset-1 btn btn-warning"})
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

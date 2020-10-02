@@ -1,0 +1,222 @@
+﻿body {
+    background-image: url('../img/beer-main-background.png');
+    background-size: cover;
+}
+div#userTable_wrapper {
+    margin: 3em;
+}
+
+div#roles-table_wrapper {
+    margin: 3em;
+}
+
+h2 {
+    color: #5fcf80;
+    text-shadow: 1px 1px black;
+}
+
+/*Contact Form*/
+
+.contact-form {
+    background-color: rgba(95,207,128,0.5);
+    border: 2px solid black;
+    box-shadow: 5px 5px 8px black;
+    padding: 2em;
+    font-weight: 800;
+    
+}
+.contact-form select
+{
+    box-shadow: 2px 2px 5px black;
+   
+}
+
+    .contact-form input, textarea {
+        font-weight: 600;
+        border: 1px solid grey;
+        box-shadow: 2px 2px 5px black;
+    }
+
+    .contact-form textarea {
+        font-weight: 600;
+    }
+
+.btn-warning {
+    border-radius: 3px 4px;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+.btn-primary {
+    border-radius: 3px 4px;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+.btn-success {
+    border-radius: 3px 4px;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+.btn-danger {
+    border-radius: 3px 4px;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+
+
+
+dt{
+    font-weight: bold;
+    text-decoration: underline;
+}
+dd{
+    margin: 0;
+    padding: 0 0 0.5em 0;
+}
+
+/*Beers Table*/
+div#beersTable_wrapper {
+    margin: 2em;
+}
+thead {
+    color: #5fcf80;
+}
+
+/*Beer Cards*/
+.card-header {
+   
+    background-color: #5fcf80;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px black;
+}
+.card {
+    box-shadow: 10px 10px 15px 5px black;
+    font-weight: 600;
+    margin-top: -30%;
+    z-index: 10;
+    width: 30%;
+    border: 2px solid black;
+  
+    
+    
+}
+.card-body{
+    background-color: #efeaea;
+    border: 2px solid black;
+    box-shadow: 2px 2px 5px;
+    margin-bottom: 2em;
+}
+.card-img-top > img {
+   width: 100%;
+   margin-top: .5em;
+   
+  
+}
+.card-img-top {
+    width: fit-content;
+}
+
+/*DataTables.net*/
+table {
+    background-color: white;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 10px 10px 15px black
+}
+thead {
+    background-color: gray;
+    border: 3px solid black;
+    
+}
+
+/*email confirmation*/
+#confirm {
+    z-index: 10;
+    margin-top: -20%;
+}
+
+/*
+    Featured Beer boxes
+*/
+
+div#feature-box {
+    border: 2px solid black;
+    background-color: white;
+    padding: 1em;
+    box-shadow: 2px 2px gray;
+    max-width: 70%;
+}
+    div#feature-box:hover {
+        border: 2px solid #5fcf80;
+        z-index: 10;
+    }
+    div#feature-box h4:hover {
+        font-weight: bold;
+    }
+
+div#feature-box > h4 {
+    background-color: #5fcf80;
+    color: white;
+    border: 1px solid black;
+    box-shadow: 2px 2px black;
+    
+}
+
+
+div#confirm > h2{
+    color: gold;
+
+}
+
+/*Ajax message box*/
+div#MessageContent {
+    position: absolute;
+    text-align: center;
+    font-weight: bolder;
+
+}
+
+/*Container Details modal pop up*/
+
+.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-draggable {
+    z-index: 1;
+    background-color: rgba(95,207,128,0.5);
+    text-align: center;
+    font-weight: bolder;
+    box-shadow: 5px 5px black;
+    color: white;
+    text-shadow: 1px 1px black;
+    padding: 2em;
+    border: 2px 2px solid black;
+}
+div#ContainerDetails {
+    margin-right: 3em;
+}
+
+button.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close {
+    float: right;
+    background-color: gold;
+    color: white;
+    text-shadow: 2px 2px black;
+}
+
+/*Events Calendar*/
+#beer-calendar {
+    box-shadow: 10px 10px 5px black;
+    border: 2px solid black;
+}
+.monthly-header {
+    background-color: rgba(95,207,128,0.5);
+}
+.monthly-header-title {
+    font-weight: bold;
+}
+.monthly-day-title-wrap {
+    font-weight: bold;
+}

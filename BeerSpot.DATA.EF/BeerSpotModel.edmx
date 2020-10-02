@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TheBeerSpotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Beers">
+          <Key>
+            <PropertyRef Name="BeerID" />
+          </Key>
+          <Property Name="BeerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="StyleID" Type="int" />
+          <Property Name="PricePerBeer" Type="smallmoney" Nullable="false" />
+          <Property Name="ABV" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="BrewerID" Type="int" Nullable="false" />
+          <Property Name="BeerStatusID" Type="int" />
+          <Property Name="BeerImage" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsSeasonal" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsFeatured" Type="bit" />
+        </EntityType>
+        <EntityType Name="BeersContainers">
+          <Key>
+            <PropertyRef Name="BeersContainersID" />
+          </Key>
+          <Property Name="BeersContainersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BeerID" Type="int" Nullable="false" />
+          <Property Name="ContainerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BeersStatus">
+          <Key>
+            <PropertyRef Name="BeersStatusID" />
+          </Key>
+          <Property Name="BeersStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Brewers">
+          <Key>
+            <PropertyRef Name="BrewerID" />
+          </Key>
+          <Property Name="BrewerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="15" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Country" Type="nvarchar" MaxLength="30" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="24" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Containers">
+          <Key>
+            <PropertyRef Name="ContainerID" />
+          </Key>
+          <Property Name="ContainerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Styles">
+          <Key>
+            <PropertyRef Name="StyleID" />
+          </Key>
+          <Property Name="StyleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StyleName" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Beers_BeersStatus">
+          <End Role="BeersStatus" Type="Self.BeersStatus" Multiplicity="0..1" />
+          <End Role="Beers" Type="Self.Beers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BeersStatus">
+              <PropertyRef Name="BeersStatusID" />
+            </Principal>
+            <Dependent Role="Beers">
+              <PropertyRef Name="BeerStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beers_Brewers">
+          <End Role="Brewers" Type="Self.Brewers" Multiplicity="1" />
+          <End Role="Beers" Type="Self.Beers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brewers">
+              <PropertyRef Name="BrewerID" />
+            </Principal>
+            <Dependent Role="Beers">
+              <PropertyRef Name="BrewerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beers_Styles">
+          <End Role="Styles" Type="Self.Styles" Multiplicity="0..1" />
+          <End Role="Beers" Type="Self.Beers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="StyleID" />
+            </Principal>
+            <Dependent Role="Beers">
+              <PropertyRef Name="StyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BeersContainers_Beers">
+          <End Role="Beers" Type="Self.Beers" Multiplicity="1" />
+          <End Role="BeersContainers" Type="Self.BeersContainers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beers">
+              <PropertyRef Name="BeerID" />
+            </Principal>
+            <Dependent Role="BeersContainers">
+              <PropertyRef Name="BeerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BeersContainers_Containers">
+          <End Role="Containers" Type="Self.Containers" Multiplicity="1" />
+          <End Role="BeersContainers" Type="Self.BeersContainers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Containers">
+              <PropertyRef Name="ContainerID" />
+            </Principal>
+            <Dependent Role="BeersContainers">
+              <PropertyRef Name="ContainerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TheBeerSpotModelStoreContainer">
+          <EntitySet Name="Beers" EntityType="Self.Beers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BeersContainers" EntityType="Self.BeersContainers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BeersStatus" EntityType="Self.BeersStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Brewers" EntityType="Self.Brewers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Containers" EntityType="Self.Containers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Styles" EntityType="Self.Styles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Beers_BeersStatus" Association="Self.FK_Beers_BeersStatus">
+            <End Role="BeersStatus" EntitySet="BeersStatus" />
+            <End Role="Beers" EntitySet="Beers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beers_Brewers" Association="Self.FK_Beers_Brewers">
+            <End Role="Brewers" EntitySet="Brewers" />
+            <End Role="Beers" EntitySet="Beers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beers_Styles" Association="Self.FK_Beers_Styles">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="Beers" EntitySet="Beers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BeersContainers_Beers" Association="Self.FK_BeersContainers_Beers">
+            <End Role="Beers" EntitySet="Beers" />
+            <End Role="BeersContainers" EntitySet="BeersContainers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BeersContainers_Containers" Association="Self.FK_BeersContainers_Containers">
+            <End Role="Containers" EntitySet="Containers" />
+            <End Role="BeersContainers" EntitySet="BeersContainers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TheBeerSpotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Beer">
+          <Key>
+            <PropertyRef Name="BeerID" />
+          </Key>
+          <Property Name="BeerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StyleID" Type="Int32" />
+          <Property Name="PricePerBeer" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="ABV" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BrewerID" Type="Int32" Nullable="false" />
+          <Property Name="BeerStatusID" Type="Int32" />
+          <Property Name="BeerImage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsSeasonal" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BeersStatu" Relationship="Self.FK_Beers_BeersStatus" FromRole="Beers" ToRole="BeersStatus" />
+          <NavigationProperty Name="Brewer" Relationship="Self.FK_Beers_Brewers" FromRole="Beers" ToRole="Brewers" />
+          <NavigationProperty Name="Style" Relationship="Self.FK_Beers_Styles" FromRole="Beers" ToRole="Styles" />
+          <NavigationProperty Name="BeersContainers" Relationship="Self.FK_BeersContainers_Beers" FromRole="Beers" ToRole="BeersContainers" />
+          <Property Name="IsFeatured" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BeersContainer">
+          <Key>
+            <PropertyRef Name="BeersContainersID" />
+          </Key>
+          <Property Name="BeersContainersID" Type="Int32" Nullable="false" />
+          <Property Name="BeerID" Type="Int32" Nullable="false" />
+          <Property Name="ContainerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Beer" Relationship="Self.FK_BeersContainers_Beers" FromRole="BeersContainers" ToRole="Beers" />
+          <NavigationProperty Name="Container" Relationship="Self.FK_BeersContainers_Containers" FromRole="BeersContainers" ToRole="Containers" />
+        </EntityType>
+        <EntityType Name="BeersStatu">
+          <Key>
+            <PropertyRef Name="BeersStatusID" />
+          </Key>
+          <Property Name="BeersStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Beers" Relationship="Self.FK_Beers_BeersStatus" FromRole="BeersStatus" ToRole="Beers" />
+        </EntityType>
+        <EntityType Name="Brewer">
+          <Key>
+            <PropertyRef Name="BrewerID" />
+          </Key>
+          <Property Name="BrewerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Beers" Relationship="Self.FK_Beers_Brewers" FromRole="Brewers" ToRole="Beers" />
+        </EntityType>
+        <EntityType Name="Container">
+          <Key>
+            <PropertyRef Name="ContainerID" />
+          </Key>
+          <Property Name="ContainerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BeersContainers" Relationship="Self.FK_BeersContainers_Containers" FromRole="Containers" ToRole="BeersContainers" />
+        </EntityType>
+        <EntityType Name="Style">
+          <Key>
+            <PropertyRef Name="StyleID" />
+          </Key>
+          <Property Name="StyleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StyleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Beers" Relationship="Self.FK_Beers_Styles" FromRole="Styles" ToRole="Beers" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Beers_BeersStatus">
+          <End Role="BeersStatus" Type="Self.BeersStatu" Multiplicity="0..1" />
+          <End Role="Beers" Type="Self.Beer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BeersStatus">
+              <PropertyRef Name="BeersStatusID" />
+            </Principal>
+            <Dependent Role="Beers">
+              <PropertyRef Name="BeerStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beers_Brewers">
+          <End Role="Brewers" Type="Self.Brewer" Multiplicity="1" />
+          <End Role="Beers" Type="Self.Beer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brewers">
+              <PropertyRef Name="BrewerID" />
+            </Principal>
+            <Dependent Role="Beers">
+              <PropertyRef Name="BrewerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beers_Styles">
+          <End Role="Styles" Type="Self.Style" Multiplicity="0..1" />
+          <End Role="Beers" Type="Self.Beer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="StyleID" />
+            </Principal>
+            <Dependent Role="Beers">
+              <PropertyRef Name="StyleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BeersContainers_Beers">
+          <End Role="Beers" Type="Self.Beer" Multiplicity="1" />
+          <End Role="BeersContainers" Type="Self.BeersContainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beers">
+              <PropertyRef Name="BeerID" />
+            </Principal>
+            <Dependent Role="BeersContainers">
+              <PropertyRef Name="BeerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BeersContainers_Containers">
+          <End Role="Containers" Type="Self.Container" Multiplicity="1" />
+          <End Role="BeersContainers" Type="Self.BeersContainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Containers">
+              <PropertyRef Name="ContainerID" />
+            </Principal>
+            <Dependent Role="BeersContainers">
+              <PropertyRef Name="ContainerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TheBeerSpotEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Beers" EntityType="Self.Beer" />
+          <EntitySet Name="BeersContainers" EntityType="Self.BeersContainer" />
+          <EntitySet Name="BeersStatus" EntityType="Self.BeersStatu" />
+          <EntitySet Name="Brewers" EntityType="Self.Brewer" />
+          <EntitySet Name="Containers" EntityType="Self.Container" />
+          <EntitySet Name="Styles" EntityType="Self.Style" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Beers_BeersStatus" Association="Self.FK_Beers_BeersStatus">
+            <End Role="BeersStatus" EntitySet="BeersStatus" />
+            <End Role="Beers" EntitySet="Beers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beers_Brewers" Association="Self.FK_Beers_Brewers">
+            <End Role="Brewers" EntitySet="Brewers" />
+            <End Role="Beers" EntitySet="Beers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beers_Styles" Association="Self.FK_Beers_Styles">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="Beers" EntitySet="Beers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BeersContainers_Beers" Association="Self.FK_BeersContainers_Beers">
+            <End Role="Beers" EntitySet="Beers" />
+            <End Role="BeersContainers" EntitySet="BeersContainers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BeersContainers_Containers" Association="Self.FK_BeersContainers_Containers">
+            <End Role="Containers" EntitySet="Containers" />
+            <End Role="BeersContainers" EntitySet="BeersContainers" />
+          </AssociationSet>
+          <EntitySet Name="UserDetails" EntityType="TheBeerSpotModel.UserDetail" />
+        </EntityContainer>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TheBeerSpotModelStoreContainer" CdmEntityContainer="TheBeerSpotEntities2">
+          <EntitySetMapping Name="Beers">
+            <EntityTypeMapping TypeName="TheBeerSpotModel.Beer">
+              <MappingFragment StoreEntitySet="Beers">
+                <ScalarProperty Name="IsFeatured" ColumnName="IsFeatured" />
+                <ScalarProperty Name="BeerID" ColumnName="BeerID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StyleID" ColumnName="StyleID" />
+                <ScalarProperty Name="PricePerBeer" ColumnName="PricePerBeer" />
+                <ScalarProperty Name="ABV" ColumnName="ABV" />
+                <ScalarProperty Name="BrewerID" ColumnName="BrewerID" />
+                <ScalarProperty Name="BeerStatusID" ColumnName="BeerStatusID" />
+                <ScalarProperty Name="BeerImage" ColumnName="BeerImage" />
+                <ScalarProperty Name="IsSeasonal" ColumnName="IsSeasonal" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BeersContainers">
+            <EntityTypeMapping TypeName="TheBeerSpotModel.BeersContainer">
+              <MappingFragment StoreEntitySet="BeersContainers">
+                <ScalarProperty Name="BeersContainersID" ColumnName="BeersContainersID" />
+                <ScalarProperty Name="BeerID" ColumnName="BeerID" />
+                <ScalarProperty Name="ContainerID" ColumnName="ContainerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BeersStatus">
+            <EntityTypeMapping TypeName="TheBeerSpotModel.BeersStatu">
+              <MappingFragment StoreEntitySet="BeersStatus">
+                <ScalarProperty Name="BeersStatusID" ColumnName="BeersStatusID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brewers">
+            <EntityTypeMapping TypeName="TheBeerSpotModel.Brewer">
+              <MappingFragment StoreEntitySet="Brewers">
+                <ScalarProperty Name="BrewerID" ColumnName="BrewerID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Containers">
+            <EntityTypeMapping TypeName="TheBeerSpotModel.Container">
+              <MappingFragment StoreEntitySet="Containers">
+                <ScalarProperty Name="ContainerID" ColumnName="ContainerID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Styles">
+            <EntityTypeMapping TypeName="TheBeerSpotModel.Style">
+              <MappingFragment StoreEntitySet="Styles">
+                <ScalarProperty Name="StyleID" ColumnName="StyleID" />
+                <ScalarProperty Name="StyleName" ColumnName="StyleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TheBeerSpotModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="TheBeerSpotModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

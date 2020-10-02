@@ -1,0 +1,108 @@
+﻿@model BeerSpot.DATA.EF.Beer
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+
+<div class="card text-center offset-4 col-md-4 mb-5">
+    <div class="card-img-top">
+        <img src="~/Content/assets/img/@Model.BeerImage" alt="@Model.Name" />
+    </div>
+    <div class="card-header">
+        <h3>@Model.Name</h3>
+    </div>
+    <div class="card-body">
+        
+        <p style="color:#5fcf80; font-weight: bold; ">
+            <em>@Model.Description</em>
+        </p>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.Brewer.Name) :</strong> @Model.Brewer.Name
+                </p>
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.StyleID) :</strong> @Model.Style.StyleName
+                </p>
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.PricePerBeer) :</strong> @string.Format($"{ Model.PricePerBeer:c}")
+                </p>
+                
+            </div>
+
+
+            <div class="col-md-6">
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.ABV) :</strong> @string.Format($"{Model.ABV:0.00}%")
+                </p>
+                <p>
+                    <strong>@Model.BeersStatu.Status</strong>
+                </p>
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.IsSeasonal) :</strong> @{if (Model.IsSeasonal == true) {
+                            <span>Yes</span>
+                            } else {
+                            <span>No</span>
+                            } }
+                </p>
+             
+                 <strong>Available In:</strong>
+                <ul>
+                 @foreach (var item in Model.BeersContainers)
+                 {
+                     <li style="color: red; font-style: italic; list-style-type: none">
+                         @item.Container.Type
+                     </li>
+                 }
+             </ul>
+
+            </div>
+
+        </div>
+        @if (Model.BeerStatusID == 1)
+        {
+            <div class="row offset-3">
+                @using (Html.BeginForm("AddToCart", "Beers", FormMethod.Post, new { @beerID = Model.BeerID }))
+                {
+                @Html.HiddenFor(x => x.BeerID)
+                <span class="label">Quantity:</span>
+                @Html.TextBox("Qty", 1, new { @class = "form-control", @style = "max-width: 50px;display:inline;" })
+                <input type="submit" value="Add To Cart" class="btn btn-warning" name="qty" />
+                }
+                @if (ViewBag.Message != null)
+                {
+                <h2>@ViewBag.Message</h2>
+                }
+
+            </div>
+        }
+        else
+        {
+                <h3 class="text-warning">Back in-stock soon!</h3>
+        }
+
+    </div>
+
+</div>
+
+
+
+<p class="offset-1 btn btn-warning">
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.BeerID }) <span>|</span>
+    }
+
+    @Html.ActionLink("Back to Beers", "Index")
+</p>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#hero").css("visibility", "hidden");
+        });
+
+    </script>
+}
+

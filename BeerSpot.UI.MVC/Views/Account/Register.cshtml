@@ -1,0 +1,40 @@
+﻿@model BeerSpot.UI.MVC.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2 class="text-center mt-3">@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+ <div class="contact-form offset-3 col-md-6 mb-3">
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        
+        <div class="offset-1 col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder="Email Address" })
+        </div>
+    </div>
+    <div class="form-group">
+       
+        <div class="offset-1 col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder="Password"})
+        </div>
+    </div>
+    <div class="form-group">
+       
+        <div class="offset-1 col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder="Confirm Password" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="offset-1 col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-lg btn-warning" value="Register" />
+        </div>
+    </div></div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

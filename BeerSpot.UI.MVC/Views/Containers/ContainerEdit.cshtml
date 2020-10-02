@@ -1,0 +1,58 @@
+﻿@model BeerSpot.DATA.EF.Container
+
+
+@using (Html.BeginForm("","",FormMethod.Post, new { id = "ContainerEditForm"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ContainerID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $("#ContainerEditForm").submit(function (e) {
+        e.preventDefault();
+        var formData = $(this).serializeArray();
+        $("#MessageContent").html("<div class='alert alert-info'>Please Wait...</div>");
+        $.ajax({
+            url: "@Url.Action("AjaxEdit", "Containers")",
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            success: function (data) {
+                $("MessageContent").html("<div class= 'alert alert-success'>Your Record was Successfully Updated!</div>");
+                $("#ContainerEditForm")[0].reset();
+                //Update row information
+                $(function () {
+                    var row = '<tr><td>' + data.Type + '</td><td>Refresh to view options</td></tr';
+                    $('#Container-' + data.ContainerID).replaceWith(row);
+                });
+                $("#ContainerEdit").dialog('close');
+            },
+            error: function (e) {
+                $("#MessageContent").html("<div class='alert alert-danger'>There was an error. " + "Please try again or contact the site administrator.</div>");
+            }
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

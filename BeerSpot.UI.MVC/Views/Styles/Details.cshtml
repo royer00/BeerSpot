@@ -1,0 +1,28 @@
+﻿@model BeerSpot.DATA.EF.Style
+
+@{
+    ViewBag.Title = "Style Details";
+}
+
+<h2 class="text-center mt-3 mb-3">@ViewBag.Title</h2>
+
+<div class="text-center">
+   
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StyleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StyleName)
+        </dd>
+
+    </dl>
+</div>
+<p class="text-center">
+
+    <span class="btn btn-outline-warning">
+        @Html.ActionLink("Edit Style", "Edit", new { id = Model.StyleID }) |
+        @Html.ActionLink("Back to Styles", "Index")
+    </span>
+</p>

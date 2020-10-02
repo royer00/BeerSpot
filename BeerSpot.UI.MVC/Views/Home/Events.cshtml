@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Events";
+}
+
+<h2 class="text-center mt-3 mb-5">Events</h2>
+<div class="monthly col-md-10 offset-1" id="beer-calendar">
+
+</div>
+@section scripts{
+    <script>
+        $("#beer-calendar").monthly({
+            mode: 'event',
+            xmlUrl:"/Content/eventsXML/events.xml",
+            eventList: true
+        });
+    </script>
+    }

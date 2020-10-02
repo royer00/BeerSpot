@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<monthly>
+  <event>
+    <id>1</id>
+    <name>Oktoberfest Bananza</name>
+    <startdate>2020-9-5</startdate>
+    <enddate>2020-10-5</enddate>
+    <color>gold</color>
+    <url></url>
+  </event>
+  <event>
+    <id>2</id>
+    <name>Torn Label Tasting</name>
+    <startdate>2020-09-10</startdate>
+    <enddate></enddate>
+    <color>lightgreen</color>
+    <url></url>
+  </event>
+  <event>
+    <id>3</id>
+    <name>Left-Hand IPA release!</name>
+    <startdate>2020-09-15</startdate>
+    <color>dodgerblue</color>
+  </event>
+  <event>
+    <id>4</id>
+    <name>All Pumkin Beers on Sale!</name>
+    <startdate>2020-10-01</startdate>
+    <enddate>2020-10-30</enddate>
+    <color>orange</color>
+  </event>
+  <event>
+    <id>5</id>
+    <name>Halloween Brown Bags!</name>
+    <startdate>2020-10-31</startdate>
+    <enddate>2020-10-31</enddate>
+    <color>black</color>
+  </event>
+</monthly>

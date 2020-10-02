@@ -1,0 +1,22 @@
+﻿@model BeerSpot.UI.MVC.Models.ContactViewModel
+
+@{
+    ViewBag.Title = "Email Confirmation";
+}
+
+<div id="confirm" class="contact-form offset-4 col-md-10 card bg mt-3 mb-3 text-center" style="color: white; background-color: #5fcf80; padding: 2em; border: 2px solid black; box-shadow: 2px 2px 5px black; margin-top: -30% !important;">
+    <img class="card-img-top" src="~/Content/assets/img/beer-success.png" alt="picture of bottles being cheersed" style="box-shadow: 2px 2px 5px black; border: 1px solid black; height: 500px; width: 100%;" />
+    <h2 class="card-title mt-3" style="text-shadow: 2px 2px 5px black;"><strong><em>SUCCESS!</em></strong></h2>
+    <h4 class="card-text">
+        We will get back to you at "@Model.Email" concerning "@Model.Subject" as soon as possible!
+    </h4>
+</div>
+
+@section scripts {
+<script>
+        $(document).ready(function () {
+            $("#hero").css("visibility", "hidden");
+        });
+
+</script>
+    }

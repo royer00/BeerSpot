@@ -1,0 +1,40 @@
+﻿@{
+    BeerSpot.DATA.EF.TheBeerSpotEntities2 b = new BeerSpot.DATA.EF.TheBeerSpotEntities2();
+    var featuredBeers = b.Beers.Where(x => x.IsFeatured == true);
+
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in featuredBeers)
+            {
+            
+                <div  class="col-xl-4 d-flex align-items-stretch text-center">
+                    
+                    <div id="feature-box" class="icon-box mt-4">
+                        <a href="@Url.Action("Details","Beers", new { id = item.BeerID})">
+                            <h4>@item.Name</h4>
+                        </a>
+                            <p>@item.Description</p>
+                            <p>@string.Format($"{item.PricePerBeer:c}")</p>
+                       
+                    </div>
+                     
+                </div>
+            
+
+
+            }
+
+
+        </div>
+
+    </div>
+     
+}
+
+@section scripts{
+    
+    }
+   
+
+

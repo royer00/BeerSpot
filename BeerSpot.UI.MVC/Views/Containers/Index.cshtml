@@ -1,0 +1,161 @@
+﻿@model IEnumerable<BeerSpot.DATA.EF.Container>
+
+@{
+    ViewBag.Title = "Containers";
+}
+
+<h2 class="text-center mb-3 mt-3">@ViewBag.Title</h2>
+
+<div class="col-md-10 offset-1">
+    @*<p>
+        @Html.ActionLink("Add Container", "Create", null, new { @class = "btn btn-lg btn-warning" })
+    </p>*@
+<!--Button for Ajax Create-->
+<h3 class="text-center">
+    <button id="toggleContainerCreate" class="btn btn-warning">
+        Create Container
+    </button>
+</h3>
+<!--div to render Create Partial-->
+<div id="ContainerCreate">
+    @Html.Partial("ContainerCreate", new BeerSpot.DATA.EF.Container())
+</div>
+
+
+    <table id="ContainersTable" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="Container-@item.ContainerID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        <a href="" class="EditLink" id="@item.ContainerID">Edit</a>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.ContainerID })*@ |
+                        <a href="" class="DetailsLink" id="@item.ContainerID">Details</a>
+                        @*@Html.ActionLink("Details", "Details", new { id = item.ContainerID })*@<span>|</span>
+                          
+                        @Ajax.ActionLink("Delete", "AjaxDelete","Containers", new { id = item.ContainerID }, new AjaxOptions
+                   { 
+                       HttpMethod = "Post",
+                       Confirm = "Are you sure you want to delete " + item.Type + " from containers?",
+                       OnSuccess = "deleteConfirmed"
+
+                   })
+                           
+                          
+                    </td>
+                </tr>
+            }
+        </tbody>
+        
+    </table>
+    <div>
+        @Html.ActionLink("Exit","Index", null, new { @class="btn btn-warning"})
+    </div>
+    </div>
+    <div id="ContainerDetails"></div>
+    <div id="ContainerEdit"></div>
+@section scripts{
+    <!--datatables.net-->
+    <script>
+        $(document).ready(function () {
+            $('#ContainersTable').DataTable();
+        });
+
+
+
+        //delete confirmation
+        function deleteConfirmed(response) {
+            //remove the row from the table
+            var rowId = '#Container-' + response.id;
+            $("#ContainersTable").find(rowId).remove();
+
+            //display a status messge (div above renderbody())
+            $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "<div>");
+        };
+
+        //AJAX Details
+        //Popping a modal from jqueryUI
+        $("a.DetailsLink").click(function (e) {
+            e.preventDefault();
+            $("#ContainerDetails").data('cId', $(this).attr("id")).dialog({
+                //dialog box properties
+                modal: true,
+                open: function () {
+                    var data = $(this).data("cId");
+                    $(this).load("/Containers/ContainerDetails/" + data)
+                },
+                width: 400,
+                height: 200,
+                title: "Container Details",
+                resizable: false
+            });
+        });
+
+        //AJAX Create
+
+        //Create Form
+        $("#ContainerCreate").hide();
+        $("#toggleContainerCreate").on("click", function () {
+            $("#ContainerCreate").toggle();
+        });
+
+        //Processing the create form
+        $("#ContainerCreateForm").submit(
+            function (e) {
+                var formData = $(this).serializeArray();
+                console.log(formData);
+                e.preventDefault();
+                $.ajax({
+                    url: "/Containers/AjaxCreate",
+                    type: "POST",
+                    data: formData,
+                    dataType: "json",
+                    error: function (e) {
+                        $("#MessageContent").html("<div class='alert alert-danger'>There was a problem!</div>");
+                    },
+                    success: function (foo) {
+                        $("#MessageContent").html("<div class='alert alert-success'>Record Added!</div>");
+                        $("#ContainerCreateForm")[0].reset();
+                        $(function () {
+                            var row = '<tr><td>' + foo.Type
+                                + '</td><td>Refresh to view options<td></tr> ';
+                            $("#ContainersTable").append(row);
+                        });
+                        $("#ContainerCreate").toggle();
+                    }
+                });
+            }
+        );
+
+        //***EDIT DIALOG BOX****
+        $("a.EditLink").on("click", function (e) {
+            e.preventDefault();
+            $("#ContainerEdit").data('cId', $(this).attr('id')).dialog({
+                modal: true,
+                open: function () {
+                    var data = $(this).data('cId');
+                    $(this).load("/Containers/ContainerEdit/" + data);
+                },
+                width: 600,
+                height: 438,
+                title: "Edit Container",
+                resizable: false
+            });
+        });
+     
+    </script>
+
+    
+
+}

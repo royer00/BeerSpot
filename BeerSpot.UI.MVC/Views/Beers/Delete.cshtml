@@ -1,0 +1,103 @@
+﻿@model BeerSpot.DATA.EF.Beer
+
+@{
+    ViewBag.Title = Model.IsActive ? "Deactivate" : "Activate";
+    ViewBag.Status = Model.IsActive ? "deactivate" : "activate";
+}
+
+<h2 class="text-center mt-3 mb-5">@ViewBag.Title</h2>
+
+<h3 class="text-center">Are you sure you want to @ViewBag.Status @Model.Name?</h3>
+<div class="contact-form offset-4 col-md-4 text-center mb-5">
+   
+    <dl class="dl-horizontal ">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePerBeer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PricePerBeer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ABV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ABV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeerImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeerImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSeasonal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSeasonal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeersStatu.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeersStatu.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brewer.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brewer.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Style.StyleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Style.StyleName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="@ViewBag.Title" class="btn btn-danger" /> 
+            @Html.ActionLink("Back to Beers", "Index",null,new { @class="offset-5 btn btn-success"})
+        </div>
+    }
+</div>

@@ -1,0 +1,78 @@
+﻿@*@model BeerSpot.UI.MVC.Models.ShoppingCartViewModel*@
+@*Change the model declaration to Dictionary<int, ShoppingCartViewModel>*@
+@model Dictionary<int, BeerSpot.UI.MVC.Models.ShoppingCartViewModel>
+
+
+@{
+    ViewBag.Title = "Shopping Cart";
+    @*
+        Table display: Beer Name, image, price, qty, line item total
+            Bottom of page display: Cart total, how many beers are included
+
+    *@
+
+    decimal? cartTotal = 0;
+    int totalCountOfItems = 0;
+
+}
+
+
+
+<h2 class="text-center mt-2 mb-3">@ViewBag.Title</h2>
+@Html.ActionLink("Back to Shopping", "Index", "Beers", null, new { @class = " offset-1 mb-3 btn btn-success" })
+
+@if (ViewBag.Message != null)
+{
+    <h3 class="text-center" style="color: #5fcf80; font-weight: bold;">@ViewBag.Message</h3>
+}
+else
+{
+    <table class="table offset-1 col-md-10">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value.Product.PricePerBeer)
+                </td>
+                
+                <td>
+                    @using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+                    {
+                        //pass the id of the beer in this LINE item
+                        @Html.Hidden("beerID", item.Value.Product.BeerID)
+                        @Html.TextBox("qty", item.Value.Qty, new { @class = "form-control", style = "max-width: 50px;display: inline;" })
+                        <input type="submit" value="Update Quantity" class="btn btn-warning" />
+                    }
+                    @{totalCountOfItems += item.Value.Qty;}
+                </td>
+                <td>
+                    <!--Calculate the line total and display in currency format-->
+                    @{ 
+                        decimal? lineTotal = item.Value.Product.PricePerBeer * item.Value.Qty;
+                        cartTotal += lineTotal;
+                    }
+                    @string.Format($"{lineTotal:c}")
+                </td>
+                <td>
+                    @Html.ActionLink("Remove From Cart","RemoveFromCart", new { id = item.Value.Product.BeerID})
+                </td>
+            </tr>
+        }
+
+    </table>
+    <h4 class="text-center font-weight-bold">
+        You have @totalCountOfItems @(totalCountOfItems == 1 ? "beer" : "beers") in your cart.
+        Your total before taxes and shipping is @string.Format($"{cartTotal:c}")
+    </h4>
+}
+

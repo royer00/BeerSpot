@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BeerSpot.DATA.EF.Style>
+
+@{
+    ViewBag.Title = "Beer Styles";
+}
+
+<h2 class="text-center mt-3 mb-3">@ViewBag.Title</h2>
+
+<div class="col-md-10 offset-1">
+    <p>
+        @Html.ActionLink("Add a Style", "Create", null, new { @class = "btn btn-lg btn-warning" })
+    </p>
+    <table id="StylesTable" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StyleName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StyleName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.StyleID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.StyleID }) |
+                        @if (item.Beers.Count == 0)
+                        {
+                            @Html.ActionLink("Delete", "Delete", new { id = item.StyleID })
+                        }
+                        else
+                        {
+                            <span class="text-danger font-weight-bold">Style In Use</span>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#StylesTable').DataTable();
+        });
+    </script>
+}

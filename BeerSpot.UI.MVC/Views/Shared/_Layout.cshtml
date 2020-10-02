@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>The Beer Spot | @ViewBag.Title</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="~/Content/assets/img/trainers/favicon.ico" />
+    <link href="~/Content/assets/img/favicon.png" rel="icon">
+    <link href="~/Content/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!--font awesome-->
+    <link href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    
+    <!--PagedList Stylesheet-->
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <!-- Vendor CSS Files -->
+    <link href="~/Content/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/Content/assets/vendor/aos/aos.css" rel="stylesheet">
+    <!--Event Calendar plugin-->
+    <link href="~/Content/assets/css/monthly.css" rel="stylesheet" />
+    <!--Age verification css-->
+    <link href="~/Content/assets/css/agecheck.css" rel="stylesheet" />
+    <!--datatables.net css-->
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+    @RenderSection("styles", required: false)
+    <!-- Template Main CSS File -->
+    <link href="~/Content/assets/css/style.css" rel="stylesheet">
+    <!--Custom Css-->
+    <link href="~/Content/assets/css/custom.css" rel="stylesheet" />
+    <!-- =======================================================
+    * Template Name: Mentor - v2.1.0
+    * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+
+            <h1 class="logo mr-auto"><a href="@Url.Action("Index","Home")">The Beer Spot</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Beers")">Beers</a></li>
+                    <li><a href="@Url.Action("Index","Brewers")">Brewers</a></li>
+                    @if (Session["cart"] != null)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "ShoppingCart")">
+                                <i class="fa fa-shopping-cart fa-lg"></i>
+                            </a>
+                        </li>
+                    }
+                    <li><a href="@Url.Action("Events", "Home")">Events</a></li>
+
+                    <li class="drop-down">
+                        <a href="">Login Menu</a>
+                        <ul>
+                            @Html.Partial("_LoginPartial")
+
+                        </ul>
+                    </li>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="drop-down">
+
+                            <a href="">Admin/Manager Menu</a>
+                            <ul>
+                                <li><a href="@Url.Action("Index", "BeersContainers")">BeersContainers</a></li>
+                                <li><a href="@Url.Action("Index", "Styles")">Styles</a></li>
+                                <li><a href="@Url.Action("Index", "Containers")">Containers</a></li>
+                                <li><a href="@Url.Action("Index", "RolesAdmin")">Roles Admin</a></li>
+                                <li><a href="@Url.Action("Index", "UsersAdmin")">Users Admin</a></li>
+                            </ul>
+                        </li>
+                    }
+                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+
+                </ul>
+            </nav><!-- .nav-menu -->
+
+
+
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex justify-content-center align-items-center">
+        <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+            <h1>Beer Today,<br>Beer Tomorrow</h1>
+            <h2 style="color:#5fcf80; ">We have a passion for Craft Beer!</h2>
+
+        </div>
+    </section><!-- End Hero -->
+
+    <main id="main">
+        <div class="row">
+            <div id="MessageDisplay">
+                <div id="MessageContent" class="col-md-10 offset-1"></div>
+            </div>
+        </div>
+        @RenderBody()
+        <div id="featured" class="container mb-5 mt-5">
+            <div class="section-title">
+                <h2 style="font-weight: bolder;">FEATURED BEERS</h2>
+                <p>GREAT BEERS, AMAZING PRICE</p>
+            </div>
+            <div class="row">
+                @Html.Partial("FeaturedBeers")
+            </div>
+        </div>
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h3>The Beer Spot</h3>
+                        <p>
+                            A108 Adam Street <br>
+                            New York, NY 535022<br>
+                            United States <br><br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Join Our Newsletter</h4>
+                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                        <form action="" method="post">
+                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container d-md-flex py-4">
+
+            <div class="mr-md-auto text-center text-md-left">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>Mentor</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div>
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Content/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/Content/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/Content/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="~/Content/assets/vendor/counterup/counterup.min.js"></script>
+    <script src="~/Content/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/Content/assets/vendor/aos/aos.js"></script>
+    <!--Script for datatables.net-->
+    <script src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!--Ajax Script-->
+    <script src="http://cdn.jsdelivr.net/jquery.ajax.unobtrusive/3.2.4/jquery.unobtrusive-ajax.min.js"></script>
+    <!--jquery UI-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--Age verification-->
+    <script src="~/Content/assets/js/jquery.agecheck-min.js"></script>
+    <!--Monthly calendar-->
+    <script src="~/Content/assets/js/monthly.js"></script>
+    <!-- Template Main JS File -->
+    <script src="~/Content/assets/js/main.js"></script>
+    <!--Navigation active script-->
+    <script>
+        $(".nav-menu ul li").each(function () {
+            var fullAnchor = $(this).find("a").attr("href");
+            var aController = fullAnchor.split("/");
+            var fullPath = (window.location.pathname + location.search).substr(1);
+            var pController = fullPath.split("/");
+            if (aController[1] == pController[0]) {
+                $(this).addClass("active");
+            }
+        });
+        $(".nav-menu ul li").each(function () {
+            if ($(this).find("a").attr("href") == window.location.pathname) {
+                $(this).addClass("active");
+            }
+            if ($(this).find("a").attr("href") == window.location.pathname && $(this).parent().parent().hasClass("drop-down")) {
+                $(this).parent().parent().addClass("active");
+            }
+        });
+
+    </script>
+    <script>
+        $.ageCheck({
+            // OPTIONS HERE
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BeerSpot.DATA.EF.BeersContainer>
+
+@{
+    ViewBag.Title = "Beers/Containers";
+}
+
+<h2 class="text-center mt-3 mb-3">@ViewBag.Title</h2>
+
+<p class="text-center mb-5">
+    @Html.ActionLink("Add Container to Beer", "Create", null, new { @class = "btn btn-warning " })
+</p>
+<div class="col-md-10 offset-1">
+    <table class="table" id="beersContainersTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beer.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Container.Type)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beer.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Container.Type)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BeersContainersID }) |
+                        
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BeersContainersID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+@section scripts{
+<script>
+        $(document).ready(function () {
+            $('#beersContainersTable').DataTable();
+        });
+</script>
+    }

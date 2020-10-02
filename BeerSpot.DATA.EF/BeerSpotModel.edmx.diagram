@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="48af31c74fdf4ff39935b33bf65d48aa" Name="Diagram1">
+        <EntityTypeShape EntityType="TheBeerSpotModel.Beer" Width="1.5" PointX="6.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheBeerSpotModel.BeersContainer" Width="1.5" PointX="10.625" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheBeerSpotModel.BeersStatu" Width="1.5" PointX="3.875" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheBeerSpotModel.Brewer" Width="1.5" PointX="8.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheBeerSpotModel.Container" Width="1.5" PointX="2.125" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheBeerSpotModel.Style" Width="1.5" PointX="0.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheBeerSpotModel.sysdiagram" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="TheBeerSpotModel.FK_Beers_BeersStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="TheBeerSpotModel.FK_Beers_Brewers" ManuallyRouted="false" />
+        <AssociationConnector Association="TheBeerSpotModel.FK_Beers_Styles" ManuallyRouted="false" />
+        <AssociationConnector Association="TheBeerSpotModel.FK_BeersContainers_Beers" ManuallyRouted="false" />
+        <AssociationConnector Association="TheBeerSpotModel.FK_BeersContainers_Containers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TheBeerSpotModel.UserDetail" Width="1.5" PointX="3.625" PointY="0.875" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

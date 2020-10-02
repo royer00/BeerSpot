@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1022
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSpot.UI.MVC", "BeerSpot.UI.MVC\BeerSpot.UI.MVC.csproj", "{A9C4FAE7-10DB-4C11-B61A-008C52DDE4C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSpot.DATA.EF", "BeerSpot.DATA.EF\BeerSpot.DATA.EF.csproj", "{70A46E59-832C-48F4-95DD-68A0A7A63E9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9C4FAE7-10DB-4C11-B61A-008C52DDE4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C4FAE7-10DB-4C11-B61A-008C52DDE4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C4FAE7-10DB-4C11-B61A-008C52DDE4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C4FAE7-10DB-4C11-B61A-008C52DDE4C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A46E59-832C-48F4-95DD-68A0A7A63E9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A46E59-832C-48F4-95DD-68A0A7A63E9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A46E59-832C-48F4-95DD-68A0A7A63E9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A46E59-832C-48F4-95DD-68A0A7A63E9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFA7EA2E-F3B9-47D0-AE7F-AD679AF54E91}
+	EndGlobalSection
+EndGlobal

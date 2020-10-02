@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity
+@using BeerSpot.DATA.EF <!--access to domain models-->
+
+@{ 
+    //Added to be able to Substring() Username below so full email address is not shown
+    int location = User.Identity.GetUserName().IndexOf("@");
+
+    //DB connection
+    TheBeerSpotEntities2 db = new TheBeerSpotEntities2();
+    string userID = User.Identity.GetUserId();//getting the ID from ASPNetUsers
+    UserDetail currentUser = db.UserDetails.Where(x => x.UserID == userID).FirstOrDefault();
+    string userFN = "Guest";//default name in case there is no match on the UserDetails table
+
+    //if there is a match on the UserDetails table, use that info to populate the userFN
+    if (currentUser != null)
+    {
+        userFN = currentUser.FirstName;
+    }
+
+}
+
+@if (Request.IsAuthenticated) {
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) {
+        @Html.AntiForgeryToken()
+
+        @*<ul class="nav navbar-nav navbar-right">*@
+            <li>
+                @*Updated below to show first name instead of email*@
+                @Html.ActionLink($"Hello {userFN}!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        @*</ul>*@
+    }
+}
+else {
+    @*<ul class="nav navbar-nav navbar-right">*@
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    @*</ul>*@
+}
